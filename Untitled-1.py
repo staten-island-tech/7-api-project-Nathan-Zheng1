@@ -1,6 +1,4 @@
-
 import requests
-
 def getData(stockdata):
     response = requests.get(f"https://marketstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers/{stockdata.lower()}")
     if response.status_code != 200:
@@ -9,11 +7,8 @@ def getData(stockdata):
     
     data = response.json()
     return {
-        "name": data["name"],
-        "height": data["height"],
-        "weight": data["weight"],
-        "types": [t["type"]["name"] for t in data["types"]]
+        "price": data["price"],
     }
-
-stock = getData("Nvidia")
-print(stock)
+    
+stock = getData("APPL")
+print(stock) 
