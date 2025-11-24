@@ -1,14 +1,14 @@
 import requests
-def getData(stockdata):
-    response = requests.get(f"https://marketstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers/{stockdata.lower()}")
+def getData(cryptodata):
+    response = requests.get(f"https://www.coinlore.com/cryptocurrency-data-api/{cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
     
     data = response.json()
     return {
-        "price": data["price"],
+        "Market Cap": data["Market Cap"]
     }
     
-stock = getData("APPL")
-print(stock) 
+coin = getData("Bitcoin")
+print(coin) 
