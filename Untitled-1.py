@@ -1,14 +1,14 @@
 import requests
 def getData(cryptodata):
-    response = requests.get(f"https://www.coinlore.com/cryptocurrency-data-api/{cryptodata.lower()}")
+    response = requests.get(f"https://api.coinlore.net/api/ticker/{cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
     
     data = response.json()
     return {
-        "Market Cap": data["Market Cap"]
+        "name": data["name"]
     }
     
-coin = getData("Bitcoin")
+coin = getData("?id=90")
 print(coin) 
