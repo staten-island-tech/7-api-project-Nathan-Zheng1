@@ -7,8 +7,10 @@ def getData(cryptodata):
     
     data = response.json()
     return {
-        "name" : data["name"]
+        "name": data["name"],
+        "symbol": data["symbol"],
+        "price_usd": data["price_usd"]
     }
     
 coin = getData("90")
-print(coin) 
+print(coin)
