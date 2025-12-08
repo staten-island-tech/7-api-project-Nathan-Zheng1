@@ -1,7 +1,7 @@
 import requests
 import tkinter as tk
 def getData(cryptodata):
-    response = requests.get(f"https://api.coinlore.net/api/tickers/{cryptodata.lower()}")
+    response = requests.get(f"https://api.coinlore.net/api/ticker/?id={cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
@@ -15,19 +15,15 @@ def getData(cryptodata):
         for item in data:
             if search_request == item["name"].lower():
                 result.append(f"{item['name'].lower()}")
-
-        for i in range(0,99):
-            name = data[i]["name"]
-            symbol = data[i]["symbol"]
-            price_usd = data[i]["price_usd"]
-            percent_change_hour = data[i]["percent_change_1h"]
-            coin_data = f"{name}: Symbol - {symbol}, Price (USD) - {price_usd}, Percent Change (HR) - ({percent_change_hour})"
-            if result == data[i]["name"]:
-                results_label.config(text=coin_data)
+                
+            if result == ["bitcoin"]:
+                results_label.config(text=f"Name: {name}({symbol}), Price: {price_usd}, Current Percent Change (1h): {percent_change_hour}")
+            elif result == ["ethereum"]:
+                results_label.config(text=f"Name: {name2}({symbol2}), Price: {price_usd2}, Current Percent Change (1h): {percent_change_hour2}")
             else:
                 results_label.config(text="No matches found.")
 
-    """ name = data[0]["name"]
+    name = data[0]["name"]
     symbol = data[0]["symbol"]
     price_usd = data[0]["price_usd"]
     percent_change_hour = data[0]["percent_change_1h"]
@@ -36,14 +32,17 @@ def getData(cryptodata):
     symbol2 = data[1]["symbol"]
     price_usd2 = data[1]["price_usd"]
     percent_change_hour2 = data[1]["percent_change_1h"]
- """
+
     root = tk.Tk()
     root.title("Crypto Data")
     root.geometry("1280x780")
 
 
-    label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar", font=("Times New Roman", 14))
+    label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar.", font=("Times New Roman", 14))
     label.pack(pady=10)
+
+    labelinfo = tk.Label(root, text="Current Searchable Options: Bitcoin, Ethereum.")
+    labelinfo.pack(pady=10)
 
     search = tk.Entry(root, width=30, font=("Aerial", 14))
     search.pack(pady=10)
@@ -56,5 +55,5 @@ def getData(cryptodata):
 
     root.mainloop()
     
-coin = getData("")
+coin = getData("90,80")
 print(coin) 
