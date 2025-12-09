@@ -23,6 +23,25 @@ def getData(cryptodata):
             else:
                 results_label.config(text="No matches found.")
 
+    def load_game():
+        label.config(text="Welcome to the triva gamemode! You will be tested on the history of bitcoin, please wait while it loads...", font=("Times New Roman", 14))
+        labelinfo.pack_forget()
+        results_label.pack_forget()
+        search.pack_forget()
+        search_button.pack_forget()
+        gamemode.pack_forget()
+
+        question = tk.Label(root, text="During 2024, a certain event caused a huge increase in crypto hype and a overall stock market bull run. What was this event?", font=("Times New Roman", 14))
+        question.pack(pady=40)
+
+        answerchoice1 = tk.Button(root, width=30, wraplength=300, text="The possible implementation of crypto into the United State Treasury.", justify=("left"), font=("Times New Roman", 14))
+        answerchoice1.pack(pady=20)
+
+        answerchoice2 = tk.Button(root, width=30, wraplength=300, text="The hype around the election of President Trump.", justify=("right"), font=("Times New Roman", 14))
+        answerchoice2.pack(pady=20)
+
+        
+
     name = data[0]["name"]
     symbol = data[0]["symbol"]
     price_usd = data[0]["price_usd"]
@@ -39,7 +58,7 @@ def getData(cryptodata):
 
 
     label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar.", font=("Times New Roman", 14))
-    label.pack(pady=10)
+    label.pack(pady=25)
 
     labelinfo = tk.Label(root, text="Current Searchable Options: Bitcoin, Ethereum.")
     labelinfo.pack(pady=10)
@@ -52,6 +71,9 @@ def getData(cryptodata):
 
     results_label = tk.Label(root, text="", font=("Times New Roman", 14), justify="left")
     results_label.pack(pady=20)
+
+    gamemode = tk.Button(root, text="Triva!", command=load_game, font=("Times New Roman", 14))
+    gamemode.pack(pady=50)
 
     root.mainloop()
     
