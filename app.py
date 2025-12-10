@@ -22,25 +22,57 @@ def getData(cryptodata):
                 results_label.config(text=f"Name: {name2}({symbol2}), Price: {price_usd2}, Current Percent Change (1h): {percent_change_hour2}")
             else:
                 results_label.config(text="No matches found.")
-
+    
     def load_game():
         label.config(text="Welcome to the triva gamemode! You will be tested on the history of bitcoin, please wait while it loads...", font=("Times New Roman", 14))
+        questionnumber = []
         labelinfo.pack_forget()
         results_label.pack_forget()
         search.pack_forget()
         search_button.pack_forget()
         gamemode.pack_forget()
 
-        question = tk.Label(root, text="During 2024, a certain event caused a huge increase in crypto hype and a overall stock market bull run. What was this event?", font=("Times New Roman", 14))
+        question = tk.Label(root, wraplength=1024, text="1: During 2024, a certain event caused a huge increase in crypto hype and a overall stock market bull run. What was this event?", font=("Times New Roman", 14))
         question.pack(pady=40)
 
-        answerchoice1 = tk.Button(root, width=30, wraplength=300, text="The possible implementation of crypto into the United State Treasury.", justify=("left"), font=("Times New Roman", 14))
+        questionnumber.append("1")
+
+        inc1 = ["Incorrect Choice! You were close! This did cause a huge increase in crypto hype and a increase in crypto markets, but the impeltementation of crypto into the US Treasury was in majority passed in 2025, not 2024. Furthermore, this did not lead to a OVERALL market increase, but rather solely crpyto."]
+        inc2 = ["This is correct! President Trump's election caused a huge uprise in the market! Buyers believed that his election would lead to huge gains, and bought tons of shares, propelling the market upward."]
+        inc3 = ["Inncorrect Choice! In many occasions, it is true than markets are usually bullish after a 'long' bearish market, yet in 2024, there was no long period of bearish markets!"]
+        inc4 = ["Incorrect Choice! New crypto coins typically do not ever cause the market, let alone the crypto market, to surge upwards. "]
+        def incorrect_choice1():
+            if questionnumber == ["1"]:
+                choicelabel.config(text=inc1[0], wraplength=1024)
+                answerchoice1.config(fg=("red"))
+        def incorrect_choice2():
+            if questionnumber == ["1"]:
+                choicelabel.config(text=inc2[0], wraplength=1024)
+                answerchoice2.config(fg=("Green"))
+        def incorrect_choice3():
+            if questionnumber == ["1"]:
+                choicelabel.config(text=inc3[0], wraplength=1024)
+                answerchoice3.config(fg=("red"))
+        def incorrect_choice4():
+            if questionnumber == ["1"]:
+                choicelabel.config(text=inc4[0], wraplength=1024)
+                answerchoice4.config(fg=("red"))
+
+        choicelabel = tk.Label(root, text="", font=("Times New Roman", 14))
+        answerchoice1 = tk.Button(root, width=30, wraplength=300, text=choice1[0], command=incorrect_choice1, justify=("center"), font=("Times New Roman", 14))
+        answerchoice2 = tk.Button(root, width=30, wraplength=300, text=choice2[0], command=incorrect_choice2, justify=("center"), font=("Times New Roman", 14))
+        answerchoice3 = tk.Button(root, width=30, wraplength=300, text=choice3[0], command=incorrect_choice3, justify=("center"), font=("Times New Roman", 14))
+        answerchoice4 = tk.Button(root, width=30, wraplength=300, text=choice4[0], command=incorrect_choice4, justify=("center"), font=("Times New Roman", 14))
+        choicelabel.pack(pady=10)
         answerchoice1.pack(pady=20)
-
-        answerchoice2 = tk.Button(root, width=30, wraplength=300, text="The hype around the election of President Trump.", justify=("right"), font=("Times New Roman", 14))
         answerchoice2.pack(pady=20)
+        answerchoice3.pack(pady=20)
+        answerchoice4.pack(pady=20)
 
-        
+    choice1 = ["The possible implementation of crypto into the United States Treasury."]
+    choice2 = ["The hype around the election of President Trump."]
+    choice3 = ["It was the result of a enlongated period of a bearish market, propelled up back to a bullish market."]
+    choice4 = ["The introduction of new crypto coins and the build-up of crypto hype."]
 
     name = data[0]["name"]
     symbol = data[0]["symbol"]
@@ -74,6 +106,7 @@ def getData(cryptodata):
 
     gamemode = tk.Button(root, text="Triva!", command=load_game, font=("Times New Roman", 14))
     gamemode.pack(pady=50)
+
 
     root.mainloop()
     
