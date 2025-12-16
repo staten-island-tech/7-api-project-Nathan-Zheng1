@@ -1,7 +1,7 @@
 import requests
 import tkinter as tk
 def getData(cryptodata):
-    response = requests.get(f"https://api.coinlore.net/api/ticker/?id={cryptodata.lower()}")
+    response = requests.get(f"https://api.coinlore.net/api/{cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
@@ -9,19 +9,20 @@ def getData(cryptodata):
     data = response.json()
 
     def search_function():
-        search_request = search.get().lower()
+        search_request = search.get()
         result = []
 
-        for item in data:
-            if search_request == item["name"].lower():
-                result.append(f"{item['name'].lower()}")
-                
-            if result == ["bitcoin"]:
+        result.append(search_request)
+
+        for i in range(0,99):
+            if [data[i]["name"]] == result:
+                results_label.config(text=f"Name: {data[i]["name"]}")
+            """ if result == ["bitcoin"]:
                 results_label.config(text=f"Name: {name}({symbol}), Price: {price_usd}, Current Percent Change (1h): {percent_change_hour}")
             elif result == ["ethereum"]:
                 results_label.config(text=f"Name: {name2}({symbol2}), Price: {price_usd2}, Current Percent Change (1h): {percent_change_hour2}")
             else:
-                results_label.config(text="No matches found.")
+                results_label.config(text="No matches found.") """
 
     def question1():
         label.config(text="Welcome to triva! Select through the questions using the buttons.", font=("Times New Roman", 20))
@@ -30,11 +31,14 @@ def getData(cryptodata):
         search.pack_forget()
         search_button.pack_forget()
         gamemode.pack_forget()
-        question.pack(pady=20)
 
         questiontab1.pack(side="left", anchor="nw", padx=5)
         questiontab2.pack(side="left", anchor="nw", padx=5)
+        questiontab3.pack(side="left", anchor="nw", padx=5)
         questiontab2.config(state="disabled")
+        questiontab3.config(state="disabled")
+
+        question.pack(pady=20)
 
         choicelabel.pack(pady=10)
 
@@ -58,6 +62,11 @@ def getData(cryptodata):
         answerchoice22.pack(pady=20)
         answerchoice32.pack(pady=20)
         answerchoice42.pack(pady=20)
+
+    def question3():
+        question.config(text="3: The storage crypto is typically held in is called: _______.")
+
+        choicelabel.config(text="")
 
 
     def incorrect_choice1_1():
@@ -99,16 +108,6 @@ def getData(cryptodata):
     inc3 = ["Inncorrect Choice! In many occasions, it is true than markets are usually bullish after a 'long' bearish market, yet in 2024, there was no long period of bearish markets!", "This is incorrect! While the receipt was given in paper, it was not mailed to the persons house."]
     inc4 = ["Incorrect Choice! New crypto coins typically do not ever cause the market, let alone the crypto market, to surge upwards.", "This is correct! After purchase of a stock, the broker would give you a paper which would act as a receipt."]
 
-    name = data[0]["name"]
-    symbol = data[0]["symbol"]
-    price_usd = data[0]["price_usd"]
-    percent_change_hour = data[0]["percent_change_1h"]
-
-    name2 = data[1]["name"]
-    symbol2 = data[1]["symbol"]
-    price_usd2 = data[1]["price_usd"]
-    percent_change_hour2 = data[1]["percent_change_1h"]
-
     root = tk.Tk()
     root.title("Crypto Data")
     root.geometry("1280x780")
@@ -132,6 +131,7 @@ def getData(cryptodata):
 
     questiontab1 = tk.Button(root, text="1", command=question1, font=("Times New Roman", 20))
     questiontab2 = tk.Button(root, text="2", command=question2, font=("Times New Roman", 20))
+    questiontab3 = tk.Button(root, text="3", command=question3, font=("Times New Roman", 20))
 
     labelinfo = tk.Label(root, text="Current Searchable Options: Bitcoin, Ethereum.")
     labelinfo.pack(pady=10)
@@ -151,5 +151,5 @@ def getData(cryptodata):
 
     root.mainloop()
     
-coin = getData("90,80")
+coin = getData("tickers/")
 print(coin) 
