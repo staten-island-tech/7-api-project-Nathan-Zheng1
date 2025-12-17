@@ -1,7 +1,7 @@
 import requests
 import tkinter as tk
 def getData(cryptodata):
-    response = requests.get(f"https://api.coinlore.net/api/{cryptodata.lower()}")
+    response = requests.get(f"https://api.coinlore.net/api/tickers/?id={cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
@@ -9,20 +9,19 @@ def getData(cryptodata):
     data = response.json()
 
     def search_function():
-        search_request = search.get()
-        result = []
+        search_request = search.get().lower()
 
-        result.append(search_request)
-
-        for i in range(0,99):
-            if [data[i]["name"]] == result:
-                results_label.config(text=f"Name: {data[i]["name"]}")
-            """ if result == ["bitcoin"]:
-                results_label.config(text=f"Name: {name}({symbol}), Price: {price_usd}, Current Percent Change (1h): {percent_change_hour}")
-            elif result == ["ethereum"]:
-                results_label.config(text=f"Name: {name2}({symbol2}), Price: {price_usd2}, Current Percent Change (1h): {percent_change_hour2}")
+        for item in data["data"]:
+            if search_request == item["name"].lower():
+                results_label.config(
+                    text=(
+                        f"Name: {item['name']} ({item['symbol']})"
+                        f"Price: ${item['price_usd']}"
+                        f"1h Change: {item['percent_change_1h']}%"
+                    )
+                )
             else:
-                results_label.config(text="No matches found.") """
+                results_label.config(text="No matches found.")
 
     def question1():
         label.config(text="Welcome to triva! Select through the questions using the buttons.", font=("Times New Roman", 20))
@@ -113,7 +112,7 @@ def getData(cryptodata):
     root.geometry("1280x780")
 
 
-    label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar.", font=("Times New Roman", 20))
+    label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar.", font=("Times New Roman", 18))
     label.pack(pady=25)
 
     question = tk.Label(root, wraplength=1024, text="1: During 2024, a certain event caused a huge increase in crypto hype and a overall stock market bull run. What was this event?", font=("Times New Roman", 14))
@@ -151,5 +150,5 @@ def getData(cryptodata):
 
     root.mainloop()
     
-coin = getData("tickers/")
+coin = getData("90,80")
 print(coin) 
