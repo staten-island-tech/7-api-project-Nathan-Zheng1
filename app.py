@@ -1,7 +1,7 @@
 import requests
 import tkinter as tk
 def getData(cryptodata):
-    response = requests.get(f"https://api.coinlore.net/api/tickers/?id={cryptodata.lower()}")
+    response = requests.get(f"https://api.coinlore.net/api/{cryptodata.lower()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
@@ -15,17 +15,15 @@ def getData(cryptodata):
             if search_request == item["name"].lower():
                 results_label.config(
                     text=(
-                        f"Name: {item['name']} ({item['symbol']})"
-                        f"Price: ${item['price_usd']}"
-                        f"1h Change: {item['percent_change_1h']}%"
+                        f"Name: {item['name']} ({item['symbol']}), Price: ${item['price_usd']}, 1h Change: {item['percent_change_1h']}%"
                     )
                 )
-            else:
-                results_label.config(text="No matches found.")
+                return  
+
+        results_label.config(text="No matches found.")
 
     def question1():
         label.config(text="Welcome to triva! Select through the questions using the buttons.", font=("Times New Roman", 20))
-        labelinfo.pack_forget()
         results_label.pack_forget()
         search.pack_forget()
         search_button.pack_forget()
@@ -40,7 +38,6 @@ def getData(cryptodata):
         question.pack(pady=20)
 
         choicelabel.pack(pady=10)
-
 
         answerchoice11.pack(pady=20)
         answerchoice21.pack(pady=20)
@@ -63,9 +60,19 @@ def getData(cryptodata):
         answerchoice42.pack(pady=20)
 
     def question3():
-        question.config(text="3: The storage crypto is typically held in is called: _______.")
+        question.config(text="3: Crypto is typically held in digital things called: _______.")
 
         choicelabel.config(text="")
+
+        answerchoice12.pack_forget()
+        answerchoice22.pack_forget()
+        answerchoice32.pack_forget()
+        answerchoice42.pack_forget()
+
+        answerchoice13.pack(pady=20)
+        answerchoice23.pack(pady=20)
+        answerchoice33.pack(pady=20)
+        answerchoice43.pack(pady=20)
 
 
     def incorrect_choice1_1():
@@ -96,23 +103,37 @@ def getData(cryptodata):
         choicelabel.config(text=inc4[1], wraplength=1024)
         answerchoice42.config(fg=("green"), bg="light green")
         questiontab2.config(state="disabled", fg="green", bg="light green")
+        questiontab3.config(state="normal")
+
+    def incorrect_choice1_3():
+        choicelabel.config(text=inc1[2], wraplength=1024)
+        answerchoice13.config(fg=("green"), bg="light green")
+        questiontab3.config(state="disabled", fg=("green"), bg="light green")
+    def incorrect_choice2_3():
+        choicelabel.config(text=inc2[2], wraplength=1024)
+        answerchoice23.config(fg=("red"), state="disabled")
+    def incorrect_choice3_3():
+        choicelabel.config(text=inc3[2], wraplength=1024)
+        answerchoice33.config(fg=("red"), state="disabled")
+    def incorrect_choice4_3():
+        choicelabel.config(text=inc4[2], wraplength=1024)
+        answerchoice43.config(fg=("red"), state="disabled")
     
-    choice1 = ["The possible implementation of crypto into the United States Treasury.", "A form of a digital link which sends the buyer to his receipt statement."]
-    choice2 = ["The hype around the election of President Trump.", "The receipt was sent via email instantly after purchase."]
-    choice3 = ["It was the result of a enlongated period of a bearish market, propelled up back to a bullish market.", "A paper receipt which was mailed to the persons house after purchase of the stock."]
-    choice4 = ["The introduction of new crypto coins and the build-up of crypto hype.", "A paper receipt given to the person directly after the purchase."]
+    choice1 = ["The possible implementation of crypto into the United States Treasury.", "A form of a digital link which sends the buyer to his receipt statement.", "Crypto Wallets"]
+    choice2 = ["The hype around the election of President Trump.", "The receipt was sent via email instantly after purchase.", "Crypto Banks"]
+    choice3 = ["It was the result of a enlongated period of a bearish market, propelled up back to a bullish market.", "A paper receipt which was mailed to the persons house after purchase of the stock.", "Crypto Holder"]
+    choice4 = ["The introduction of new crypto coins and the build-up of crypto hype.", "A paper receipt given to the person directly after the purchase.", "Crypto Storage"]
     
-    inc1 = ["Incorrect Choice! You were close! This did cause a huge increase in crypto hype and a increase in crypto markets, but the impeltementation of crypto into the US Treasury was in majority passed in 2025, not 2024. Furthermore, this did not lead to a OVERALL market increase, but rather solely crpyto.", "This is incorrect! In the early days of the stock market, technology didn't exist, and therefore digital receipts did not exit."]
-    inc2 = ["This is correct! President Trump's election caused a huge uprise in the market! Buyers believed that his election would lead to huge gains, and bought tons of shares, propelling the market upward.", "This is incorrect! In the early days of the stock market, technology didn't exist, and therefore digital receipts did not exit."]
-    inc3 = ["Inncorrect Choice! In many occasions, it is true than markets are usually bullish after a 'long' bearish market, yet in 2024, there was no long period of bearish markets!", "This is incorrect! While the receipt was given in paper, it was not mailed to the persons house."]
-    inc4 = ["Incorrect Choice! New crypto coins typically do not ever cause the market, let alone the crypto market, to surge upwards.", "This is correct! After purchase of a stock, the broker would give you a paper which would act as a receipt."]
+    inc1 = ["Incorrect Choice! You were close! This did cause a huge increase in crypto hype and a increase in crypto markets, but the impeltementation of crypto into the US Treasury was in majority passed in 2025, not 2024. Furthermore, this did not lead to a OVERALL market increase, but rather solely crpyto.", "This is incorrect! In the early days of the stock market, technology didn't exist, and therefore digital receipts did not exit.", "This is correct! Crypto is stored in crypto wallets"]
+    inc2 = ["This is correct! President Trump's election caused a huge uprise in the market! Buyers believed that his election would lead to huge gains, and bought tons of shares, propelling the market upward.", "This is incorrect! In the early days of the stock market, technology didn't exist, and therefore digital receipts did not exit.", "This is incorrect!"]
+    inc3 = ["Inncorrect Choice! In many occasions, it is true than markets are usually bullish after a 'long' bearish market, yet in 2024, there was no long period of bearish markets!", "This is incorrect! While the receipt was given in paper, it was not mailed to the persons house.", "This is incorrect!"]
+    inc4 = ["Incorrect Choice! New crypto coins typically do not ever cause the market, let alone the crypto market, to surge upwards.", "This is correct! After purchase of a stock, the broker would give you a paper which would act as a receipt.", "This is incorrect!"]
 
     root = tk.Tk()
     root.title("Crypto Data")
     root.geometry("1280x780")
 
-
-    label = tk.Label(root, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar.", font=("Times New Roman", 18))
+    label = tk.Label(root, wraplength=1200, text="Welcome to the crypto database! Find information about your most popular types of crypto by searching in the search bar. (Top 100 coins)", font=("Times New Roman", 18))
     label.pack(pady=25)
 
     question = tk.Label(root, wraplength=1024, text="1: During 2024, a certain event caused a huge increase in crypto hype and a overall stock market bull run. What was this event?", font=("Times New Roman", 14))
@@ -127,13 +148,14 @@ def getData(cryptodata):
     answerchoice22 = tk.Button(root, width=30, wraplength=300, text=choice2[1], command=incorrect_choice2_2, justify=("center"), font=("Times New Roman", 14))
     answerchoice32 = tk.Button(root, width=30, wraplength=300, text=choice3[1], command=incorrect_choice3_2, justify=("center"), font=("Times New Roman", 14))
     answerchoice42 = tk.Button(root, width=30, wraplength=300, text=choice4[1], command=incorrect_choice4_2, justify=("center"), font=("Times New Roman", 14))
+    answerchoice13 = tk.Button(root, width=30, wraplength=300, text=choice1[2], command=incorrect_choice1_3, justify=("center"), font=("Times New Roman", 14))
+    answerchoice23 = tk.Button(root, width=30, wraplength=300, text=choice2[2], command=incorrect_choice2_3, justify=("center"), font=("Times New Roman", 14))
+    answerchoice33 = tk.Button(root, width=30, wraplength=300, text=choice3[2], command=incorrect_choice3_3, justify=("center"), font=("Times New Roman", 14))
+    answerchoice43 = tk.Button(root, width=30, wraplength=300, text=choice4[2], command=incorrect_choice4_3, justify=("center"), font=("Times New Roman", 14))
 
     questiontab1 = tk.Button(root, text="1", command=question1, font=("Times New Roman", 20))
     questiontab2 = tk.Button(root, text="2", command=question2, font=("Times New Roman", 20))
     questiontab3 = tk.Button(root, text="3", command=question3, font=("Times New Roman", 20))
-
-    labelinfo = tk.Label(root, text="Current Searchable Options: Bitcoin, Ethereum.")
-    labelinfo.pack(pady=10)
 
     search = tk.Entry(root, width=30, font=("Aerial", 14))
     search.pack(pady=10)
@@ -147,8 +169,7 @@ def getData(cryptodata):
     gamemode = tk.Button(root, text="Triva!", command=question1, font=("Times New Roman", 14))
     gamemode.pack(pady=50)
 
-
     root.mainloop()
     
-coin = getData("90,80")
+coin = getData("tickers/")
 print(coin) 
